@@ -3,13 +3,15 @@ package MazeGenerator;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 public class Generator {
 	private int size;
 	private Cell cells[][];
 	private Cell current;
 	private Cell next;
-	Random random=new Random();
+	private Random random=new Random();
+	private Stack<Cell> stack=new Stack<>();
 	public Generator(int size)
 	{
 		this.size=size;
@@ -24,20 +26,30 @@ public class Generator {
 			}
 		}
 		current=cells[0][0];
-		
+		current.setVisited();
 		while(true)
 		{
-			current.setVisited();
-			next=findNeighbour();
-			if(next==null)break;
-			current.removeWallBetween(next);
-			current=next;
 			
+			if(findNeighbour())
+			{
+				stack.push(current);
+				current.removeWallBetween(next);
+				current=next;
+				current.setVisited();
+				
+			}
+			else if(!stack.isEmpty())
+			{
+				current=stack.pop();
+			}else 
+			{
+				break;
+			}
 		}
-		System.out.println("End of generating");
+		
 	}
 	
-	private Cell findNeighbour()
+	private boolean findNeighbour()
 	{
 		ArrayList<Cell> neighbours=new ArrayList<Cell>();
 		int curX=current.getX();
@@ -59,8 +71,12 @@ public class Generator {
 			neighbours.add(cells[curY][curX-1]);
 		}
 		
-		if(neighbours.isEmpty())return null;
-		else return neighbours.get(random.nextInt(neighbours.size()));
+		if(neighbours.isEmpty())return false;
+		else 
+			{
+				next=neighbours.get(random.nextInt(neighbours.size()));
+				return true;
+			}
 	}
 	
 	public void DrawMaze(Graphics2D g,int w,int h)

@@ -8,5 +8,6 @@ public class Frame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 500);
 		add(new MazePanel());
+		repaint();
 	}
 }
