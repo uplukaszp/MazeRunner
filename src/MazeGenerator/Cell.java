@@ -1,8 +1,10 @@
 package MazeGenerator;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.*;
+import javafx.scene.shape.Rectangle;
 
 
 
@@ -61,49 +63,50 @@ public class Cell {
 		
 		
 	}
-	public void drawCell(Graphics2D g,int w,int h)
+	public void drawCell(GraphicsContext gc,double w,double h)
 	{
-		Color c=g.getColor();
+		
+		
 		Rectangle bounds=calculateCellBounds(w,h);
 		
 		for(int i=0;i<walls.length;i++)
 		{
 			if(walls[i])
 			{
-				g.setColor(c);
+				gc.setStroke(Color.BLACK);
 			}else 
 			{
-				g.setColor(new Color(0,0,0,0));
+				gc.setStroke(new Color(0,0,0,0.0));
 			}
 			switch (i) {
 			case 0:
-				g.drawLine(bounds.x, bounds.y, bounds.x+bounds.width, bounds.y);
+				gc.strokeLine(bounds.getX(), bounds.getY(), bounds.getX()+bounds.getWidth(), bounds.getY());
 				break;
 			case 1:
-				g.drawLine(bounds.x+bounds.width, bounds.y, bounds.x+bounds.width, bounds.y+bounds.height);
+				gc.strokeLine(bounds.getX()+bounds.getWidth(), bounds.getY(), bounds.getX()+bounds.getWidth(), bounds.getY()+bounds.getHeight());
 				break;
 
 			case 2:
-				g.drawLine(bounds.x+bounds.width, bounds.y+bounds.height, bounds.x, bounds.y+bounds.height);
+				gc.strokeLine(bounds.getX()+bounds.getWidth(), bounds.getY()+bounds.getHeight(), bounds.getX(), bounds.getY()+bounds.getHeight());
 				break;
 
 			case 3:
-				g.drawLine(bounds.x, bounds.y+bounds.height, bounds.x, bounds.y);
+				gc.strokeLine(bounds.getX(), bounds.getY()+bounds.getHeight(), bounds.getX(), bounds.getY());
 				break;
 
 			default:
 				break;
 			}
 		}
-		g.setColor(c);
+		
 	}
-	private Rectangle calculateCellBounds(int w,int h)
+	private Rectangle calculateCellBounds(double w,double h)
 	{
 		Rectangle r=new Rectangle();
-		r.x=x*(w/size);
-		r.y=y*(h/size);
-		r.width=w/size;
-		r.height=h/size;
+		r.setX(x*(w/size));
+		r.setY(y*(h/size));
+		r.setWidth(w/size);
+		r.setHeight(h/size);
 		return r;
 		
 	}

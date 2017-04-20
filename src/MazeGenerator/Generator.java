@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class Generator {
 	private int size;
 	private Cell cells[][];
@@ -79,13 +81,13 @@ public class Generator {
 			}
 	}
 	
-	public void DrawMaze(Graphics2D g,int w,int h)
+	public void DrawMaze(GraphicsContext gc,double w,double h)
 	{
 		for(int y=0;y<size;y++)
 		{
 			for(int x=0;x<size;x++)
 			{
-				cells[y][x].drawCell(g, w, h);
+				cells[y][x].drawCell(gc, w, h);
 			}
 		}
 	}
