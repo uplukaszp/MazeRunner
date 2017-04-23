@@ -1,13 +1,22 @@
 package controller;
 
-import MazeGenerator.Generator;
+
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.scene.BoundsAccessor;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import javafx.scene.effect.Effect;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.paint.Color;
+import mazeGenerating.Maze;
+import mazeHandling.AutomaticMover;
+import mazeHandling.MazeController;
 
 public class MainController {
 
@@ -17,19 +26,22 @@ public class MainController {
 
     
     private int size;
-    private Generator maze;
+    private MazeController controller;
+    
     @FXML
     void Generate(ActionEvent event) {
     	try
     	{
     		size=Integer.valueOf(tf_size.getText());
+    		GraphicsContext gc=canvas.getGraphicsContext2D();
+    		controller=new MazeController(gc,size,canvas.getWidth(), canvas.getHeight());
+    		controller.addMover(new AutomaticMover());
+    		controller.drawAll();
     	}catch(Exception e)
     	{
-    		System.out.println(e.getMessage());
+    		System.out.println(e.getLocalizedMessage());
     	}
-    	maze=new Generator(size);
-    	GraphicsContext gc=canvas.getGraphicsContext2D();
-    	maze.DrawMaze(gc, canvas.getWidth(), canvas.getHeight());
+    	
     }
 
     @FXML

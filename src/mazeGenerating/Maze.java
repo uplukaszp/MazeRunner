@@ -1,4 +1,4 @@
-package MazeGenerator;
+package mazeGenerating;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -7,14 +7,14 @@ import java.util.Stack;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class Generator {
+public class Maze {
 	private int size;
 	private Cell cells[][];
 	private Cell current;
 	private Cell next;
 	private Random random=new Random();
 	private Stack<Cell> stack=new Stack<>();
-	public Generator(int size)
+	public Maze(int size)
 	{
 		this.size=size;
 		cells=new Cell[size][];
@@ -83,6 +83,7 @@ public class Generator {
 	
 	public void DrawMaze(GraphicsContext gc,double w,double h)
 	{
+		gc.clearRect(0, 0, w, h);
 		for(int y=0;y<size;y++)
 		{
 			for(int x=0;x<size;x++)

@@ -1,10 +1,11 @@
-package MazeGenerator;
+package mazeGenerating;
 
 
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
+
 
 
 
@@ -65,8 +66,7 @@ public class Cell {
 	}
 	public void drawCell(GraphicsContext gc,double w,double h)
 	{
-		
-		
+
 		Rectangle bounds=calculateCellBounds(w,h);
 		
 		for(int i=0;i<walls.length;i++)
@@ -77,6 +77,7 @@ public class Cell {
 			}else 
 			{
 				gc.setStroke(new Color(0,0,0,0.0));
+				
 			}
 			switch (i) {
 			case 0:
