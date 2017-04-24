@@ -1,11 +1,13 @@
 package mazeGenerating;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
+import com.sun.javafx.geom.Point2D;
+
 import javafx.scene.canvas.GraphicsContext;
+import mazeHandling.Directions;
 
 public class Maze {
 	private int size;
@@ -91,6 +93,11 @@ public class Maze {
 				cells[y][x].drawCell(gc, w, h);
 			}
 		}
+	}
+	public boolean isPosibleMove(Directions d,Point2D from)
+	{
+		return !cells[(int) from.y][(int) from.x].isWall(d);
+			
 	}
 	
 }

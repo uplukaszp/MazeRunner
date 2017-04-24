@@ -34,17 +34,19 @@ public class MazeController implements Observer{
 		drawAll();
 		for(Mover m:movers)
 		{
+			if(maze.isPosibleMove(m.lastDirection, m.getPos()))
 			m.updatePos();
 		}
 		
 	}
 	public void drawAll()
 	{
+		maze.DrawMaze(gc, width, height);
 		for(Mover m:movers)
 		{
 			m.Draw(gc,width,height,size);
 		}
-		maze.DrawMaze(gc, width, height);
+		
 	}
 	
 }

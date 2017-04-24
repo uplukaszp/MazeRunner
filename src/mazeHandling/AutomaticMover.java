@@ -1,5 +1,6 @@
 package mazeHandling;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,39 +13,39 @@ import javafx.util.Duration;
 
 public class AutomaticMover extends Mover{
 
+	private double sizeOfMover;
+	private Color c;
 	
 	public AutomaticMover() {
-		//TODO change timer;
-		/*Timer t=new Timer();
-		t.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				tryMove();
-			}
-		},0, 1000);
-	*/
+		
+		Random r=new Random();
 		Timeline timeline = new Timeline(new KeyFrame(
-		        Duration.millis(1000),
+		        Duration.millis(100),
 		        ae -> tryMove()));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
+		sizeOfMover=0.3+r.nextDouble()*0.7;
+		c=new Color(r.nextDouble(),r.nextDouble(),r.nextDouble(),r.nextDouble());
 	}
 	@Override
 	public void Draw(GraphicsContext gc, double width, double height, int size) {
 		
 		double cellWidth=width/size;
 		double cellHeight=height/size;
-		gc.setFill(Color.RED);
-		gc.fillRect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-		System.out.println("x="+x+" y="+ y+" cellW="+cellWidth+" cellh="+cellHeight);
+		gc.setFill(c);
+		gc.fillRect(x*cellWidth, y*cellHeight, cellWidth*sizeOfMover, cellHeight*sizeOfMover);
+		
+		
 		
 	}
 
 	@Override
 	public void tryMove() {		
-		System.out.println("ovveriden tryMove");
-		lastDirection=Directions.down;
+		lastDirection=Directions.getRandomDirection();
+		if(lastDirection==null)
+		{
+			System.out.println("null");
+		}
 		setChanged();
 		notifyObservers();
 		

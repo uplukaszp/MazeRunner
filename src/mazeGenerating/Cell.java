@@ -5,6 +5,7 @@ package mazeGenerating;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import mazeHandling.Directions;
 
 
 
@@ -60,9 +61,23 @@ public class Cell {
 			walls[3]=false;
 			c.walls[1]=false;
 		}
+	}
+	public boolean isWall(Directions d)
+	{
 		
-		
-		
+		switch(d)
+		{
+		case down:
+			return walls[2];
+		case left:
+			return walls[3];
+		case right:
+			return walls[1];
+		case up:
+			return walls[0];
+		default:
+			return false;
+		}
 	}
 	public void drawCell(GraphicsContext gc,double w,double h)
 	{

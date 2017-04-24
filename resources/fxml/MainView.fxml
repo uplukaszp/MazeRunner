@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
       <Button fx:id="btn1" layoutX="521.0" layoutY="41.0" mnemonicParsing="false" onAction="#Generate" text="Generate" />
-      <TextField fx:id="tf_size" layoutX="521.0" layoutY="116.0" onAction="#SizeTyped" prefHeight="25.0" prefWidth="64.0" text="10" />
+      <TextField fx:id="tf_size" layoutX="518.0" layoutY="99.0" prefHeight="25.0" prefWidth="64.0" text="10" />
       <Canvas fx:id="canvas" height="400.0" width="506.0" />
-      <Label layoutX="521.0" layoutY="99.0" text="Size :">
+      <Label layoutX="521.0" layoutY="80.0" text="Size :">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
+      <Button fx:id="addbtn" layoutX="518.0" layoutY="175.0" mnemonicParsing="false" onAction="#add" text="Add" />
    </children>
 </Pane>

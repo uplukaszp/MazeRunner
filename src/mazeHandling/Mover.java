@@ -11,7 +11,7 @@ public abstract class Mover extends Observable{
 	
 	protected int x;
 	protected int y;
-	protected Directions lastDirection;
+	protected Directions lastDirection=Directions.up;
 	
 	
 	public Point2D getPos()
@@ -39,13 +39,8 @@ public abstract class Mover extends Observable{
 	}
 	
 	public abstract void Draw(GraphicsContext gc,double width,double height,int size);
-	
-	
 	public abstract void tryMove();
-	{
-		System.out.println("Basic tryMove");
-		
-	}
+	
 	
 	
 	
