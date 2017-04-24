@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import mazeHandling.Directions;
 
 public class Maze {
+	private final double chanceForRemove=0.025;
 	private int size;
 	private Cell cells[][];
 	private Cell current;
@@ -38,6 +39,7 @@ public class Maze {
 			{
 				stack.push(current);
 				current.removeWallBetween(next);
+				tryRemoveRandomly();
 				current=next;
 				current.setVisited();
 				
@@ -82,7 +84,17 @@ public class Maze {
 				return true;
 			}
 	}
-	
+	private void tryRemoveRandomly()
+	{
+		
+		if(random.nextInt(size)<chanceForRemove*size*size)
+			{
+				if(findNeighbour())
+				{
+					current.removeWallBetween(next);
+				}
+			}
+	}
 	public void DrawMaze(GraphicsContext gc,double w,double h)
 	{
 		gc.clearRect(0, 0, w, h);
