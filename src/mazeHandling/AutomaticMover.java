@@ -1,9 +1,6 @@
 package mazeHandling;
 
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,8 +38,8 @@ public class AutomaticMover extends Mover{
 
 	@Override
 	public void tryMove() {		
-		lastDirection=Directions.getRandomDirection();
-		if(lastDirection==null)
+		lastDirection=(Directions.getRandomDirection());
+		if(getLastDirection()==null)
 		{
 			System.out.println("null");
 		}
@@ -50,6 +47,7 @@ public class AutomaticMover extends Mover{
 		notifyObservers();
 		
 	}
+
 	public void stop()
 	{
 		timeline.stop();

@@ -18,9 +18,12 @@ public abstract class Mover extends Observable{
 	{
 		return new Point2D(x,y);
 	}
+	public Directions getLastDirection() {
+		return lastDirection;
+	}
 	public void updatePos()
 	{
-		switch (lastDirection) {
+		switch (getLastDirection()) {
 		case up:
 			y--;
 			break;
@@ -40,10 +43,5 @@ public abstract class Mover extends Observable{
 	
 	public abstract void Draw(GraphicsContext gc,double width,double height,int size);
 	public abstract void tryMove();
-	
-	
-	
-	
-
 	
 }

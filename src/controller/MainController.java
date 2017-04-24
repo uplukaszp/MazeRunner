@@ -9,7 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import mazeHandling.AutomaticMover;
-import mazeHandling.MazeController;
 
 public class MainController {
 

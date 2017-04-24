@@ -1,4 +1,4 @@
-package mazeHandling;
+package controller;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -6,6 +6,8 @@ import java.util.Observer;
 
 import javafx.scene.canvas.GraphicsContext;
 import mazeGenerating.Maze;
+import mazeHandling.AutomaticMover;
+import mazeHandling.Mover;
 
 public class MazeController implements Observer{
 	private Maze maze;
@@ -34,7 +36,7 @@ public class MazeController implements Observer{
 		drawAll();
 		for(Mover m:movers)
 		{
-			if(maze.isPosibleMove(m.lastDirection, m.getPos()))
+			if(maze.isPosibleMove(m.getLastDirection(), m.getPos()))
 			m.updatePos();
 		}
 		
