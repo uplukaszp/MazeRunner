@@ -15,11 +15,11 @@ public class AutomaticMover extends Mover{
 
 	private double sizeOfMover;
 	private Color c;
-	
+	private Timeline timeline;
 	public AutomaticMover() {
 		
 		Random r=new Random();
-		Timeline timeline = new Timeline(new KeyFrame(
+		 timeline = new Timeline(new KeyFrame(
 		        Duration.millis(100),
 		        ae -> tryMove()));
 		timeline.setCycleCount(Animation.INDEFINITE);
@@ -50,5 +50,8 @@ public class AutomaticMover extends Mover{
 		notifyObservers();
 		
 	}
-
+	public void stop()
+	{
+		timeline.stop();
+	}
 }

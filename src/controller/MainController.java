@@ -24,16 +24,15 @@ public class MainController {
     
     @FXML
     void Generate(ActionEvent event) {
-    	try
-    	{
+    		if(controller!=null)
+    		{
+    			controller.stopAllMovers();
+    		}
     		size=Integer.valueOf(tf_size.getText());
     		GraphicsContext gc=canvas.getGraphicsContext2D();
     		controller=new MazeController(gc,size,canvas.getWidth(), canvas.getHeight());
     		controller.drawAll();
-    	}catch(Exception e)
-    	{
-    		System.out.println(e.getLocalizedMessage());
-    	}
+    	
     	
     }
     

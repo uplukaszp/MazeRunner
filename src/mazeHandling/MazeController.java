@@ -48,5 +48,16 @@ public class MazeController implements Observer{
 		}
 		
 	}
+	public void stopAllMovers()
+	{
+		for(Mover m:movers)
+		{
+			if(m instanceof AutomaticMover)
+			{
+				AutomaticMover am=(AutomaticMover)m;
+				am.stop();
+			}
+		}
+	}
 	
 }
