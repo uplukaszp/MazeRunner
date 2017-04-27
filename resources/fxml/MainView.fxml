@@ -19,7 +19,7 @@
       </Label>
       <Pane layoutX="493.0" layoutY="348.0" prefHeight="185.0" prefWidth="107.0">
          <children>
-            <fx:include fx:id="mutation" source="GeneticSettingsView.fxml" />
+            <fx:include fx:id="evolution" source="GeneticSettingsView.fxml" />
          </children>
       </Pane>
       <Button layoutX="515.0" layoutY="105.0" mnemonicParsing="false" onAction="#Start" prefHeight="25.0" prefWidth="64.0" text="Start" />

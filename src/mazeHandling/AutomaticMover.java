@@ -13,10 +13,10 @@ public class AutomaticMover {
 	private Color c;
 	private Directions moveSequence [];
 	private int whichMove=0;
-	protected int x=0;
-	protected int y=0;
-	protected Directions lastDirection=Directions.up;
-	
+	private int x=0;
+	private int y=0;
+	private Directions lastDirection=Directions.up;
+	private boolean isStopped=false;
 	
 
 	public AutomaticMover(int howManyMoves) {
@@ -70,7 +70,7 @@ public class AutomaticMover {
 
 
 	public void tryMove() {
-		if(whichMove<moveSequence.length)
+		if(whichMove<moveSequence.length&&!isStopped)
 		{
 			lastDirection=moveSequence[whichMove++];
 		}else
@@ -87,5 +87,12 @@ public class AutomaticMover {
 	{
 		return this.x==(size-1)&&this.y==(size-1);
 	}
-	
+	public void stop()
+	{
+		isStopped=true;
+	}
+	public int getNumberOfMoves()
+	{
+		return whichMove;
+	}
 }

@@ -42,15 +42,23 @@ public class MazeController extends Observable{
 		drawAll();
 		for(AutomaticMover m:movers)
 		{
-			m.tryMove();
-			if(maze.isPosibleMove(m.getLastDirection(), m.getPos()))
+			if(!m.isAtTheEnd(size))
 			{
-				m.updatePos();
-			}
-			if(!m.isMoving())
-			{
-				stopMoving=true;
-			}
+				m.tryMove();
+				if(maze.isPosibleMove(m.getLastDirection(), m.getPos()))
+				{
+					m.updatePos();
+				}
+				if(m.isAtTheEnd(size))
+				{
+					m.stop();
+				}
+				if(!m.isMoving())
+				{
+					stopMoving=true;
+				}
+			}else continue;
+			
 		}
 		if(stopMoving)
 		{

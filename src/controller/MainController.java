@@ -20,7 +20,7 @@ public class MainController implements Observer{
     @FXML    private Canvas canvas;
     @FXML    private Button addbtn;
     @FXML    private AnchorPane GeneticPane;
-    @FXML	 private MutationController mutationController;
+    @FXML	 private EvolutionController evolutionController;
     private int size;
     private MazeController controller;
     
@@ -31,6 +31,8 @@ public class MainController implements Observer{
     			controller.stopSimulation();
     		}
     		size=Integer.valueOf(tf_size.getText());
+    		evolutionController.setsize(size);
+    		
     		GraphicsContext gc=canvas.getGraphicsContext2D();
     		controller=new MazeController(gc,size,canvas.getWidth(), canvas.getHeight());
     		controller.addObserver(this);
@@ -40,8 +42,8 @@ public class MainController implements Observer{
     @FXML
     void Start(ActionEvent event) {
     	btn1.setDisable(true);
-    	mutationController.setEditable(false);
-    	controller.setMovers(mutationController.getPopulation());    	
+    	evolutionController.setEditable(false);
+    	controller.setMovers(evolutionController.getPopulation());    	
     	controller.StartSimulation();
     }
     
@@ -55,7 +57,7 @@ public class MainController implements Observer{
     }
     @FXML
     void New(ActionEvent event) {
-    	mutationController.setEditable(true);
+    	evolutionController.setEditable(true);
     	btn1.setDisable(false);
     }
 
