@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import mazeHandling.AutomaticMover;
 
 public class MainController {
@@ -16,10 +17,11 @@ public class MainController {
     @FXML    private TextField tf_size;    
     @FXML    private Canvas canvas;
     @FXML    private Button addbtn;
-
+    @FXML    private AnchorPane GeneticPane;
     
     private int size;
     private MazeController controller;
+    private int howManyMoves=100;
     
     @FXML
     void Generate(ActionEvent event) {
@@ -32,7 +34,7 @@ public class MainController {
     		controller=new MazeController(gc,size,canvas.getWidth(), canvas.getHeight());
     		controller.drawAll();
     	
-    	
+    		
     }
     
 
@@ -41,7 +43,7 @@ public class MainController {
     void add(ActionEvent event) {
     	if(controller!=null)
     	{
-    		controller.addMover(new AutomaticMover());
+    		controller.addMover(new AutomaticMover(howManyMoves));
     	}
     }
 

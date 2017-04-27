@@ -1,13 +1,11 @@
 package mazeHandling;
 
-import java.util.Observable;
 import com.sun.javafx.geom.Point2D;
-
 import javafx.scene.canvas.GraphicsContext;
 
 
 
-public abstract class Mover extends Observable{
+public abstract class Mover{
 	
 	protected int x;
 	protected int y;
