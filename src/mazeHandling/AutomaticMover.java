@@ -1,19 +1,24 @@
 package mazeHandling;
 
 import java.util.Random;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
+import com.sun.javafx.geom.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
-public class AutomaticMover extends Mover{
+
+public class AutomaticMover {
 
 	private double sizeOfMover;
 	private Color c;
 	private Directions moveSequence [];
 	private int whichMove=0;
+	protected int x=0;
+	protected int y=0;
+	protected Directions lastDirection=Directions.up;
+	
+	
+
 	public AutomaticMover(int howManyMoves) {
 		
 		Random r=new Random();
@@ -27,7 +32,34 @@ public class AutomaticMover extends Mover{
 		c=new Color(r.nextDouble(),r.nextDouble(),r.nextDouble(),r.nextDouble());
 	}
 	
-	@Override
+	public Point2D getPos()
+	{
+		return new Point2D(x,y);
+	}
+	
+	public Directions getLastDirection() {
+		return lastDirection;
+	}
+	public void updatePos()
+	{
+		switch (getLastDirection()) {
+		case up:
+			y--;
+			break;
+		case left:
+			x--;
+			break;
+		case down:
+			y++;
+			break;
+		case right:
+			x++;
+			break;
+		default:
+			break;
+		}
+	}
+	
 	public void Draw(GraphicsContext gc, double width, double height, int size) {
 		
 		double cellWidth=width/size;
@@ -36,7 +68,7 @@ public class AutomaticMover extends Mover{
 		gc.fillRect(x*cellWidth, y*cellHeight, cellWidth*sizeOfMover, cellHeight*sizeOfMover);
 	}
 
-	@Override
+
 	public void tryMove() {
 		if(whichMove<moveSequence.length)
 		{
@@ -46,4 +78,14 @@ public class AutomaticMover extends Mover{
 			lastDirection=Directions.nothing;
 		}		
 	}
+	
+	public boolean isMoving()
+	{
+		return lastDirection!=Directions.nothing;
+	}
+	public boolean isAtTheEnd(int size)
+	{
+		return this.x==(size-1)&&this.y==(size-1);
+	}
+	
 }

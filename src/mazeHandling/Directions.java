@@ -10,6 +10,6 @@ public enum Directions {
 	
 	public static Directions getRandomDirection()
 	{
-		return d[r.nextInt(d.length)];
+		return d[r.nextInt(d.length-1)];
 	}
 }
