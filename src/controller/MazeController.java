@@ -1,16 +1,12 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Duration;
 import mazeGenerating.Maze;
-import mazeHandling.AutomaticMover;
 import mazeHandling.Mover;
 
 public class MazeController {
@@ -53,6 +49,14 @@ public class MazeController {
 		
 	}
 	
+	public void setMovers(ArrayList<Mover>m)
+	{
+		this.movers=m;
+	}
+	public ArrayList<Mover> getMovers()
+	{
+		return  movers;
+	}
 	public void drawAll()
 	{
 		maze.DrawMaze(gc, width, height);
@@ -62,7 +66,11 @@ public class MazeController {
 		}
 		
 	}
-	public void stopAllMovers()
+	public void StartSimulation()
+	{
+		timeline.play();
+	}
+	public void stopSimulation()
 	{
 		timeline.stop();
 	}

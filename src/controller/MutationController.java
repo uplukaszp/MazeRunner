@@ -1,41 +1,33 @@
 package controller;
 
-import javafx.event.ActionEvent;
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import mazeHandling.AutomaticMover;
+import mazeHandling.Mover;
 
 public class MutationController {
 
     @FXML private TextField seqLen;
     @FXML private TextField amount;
     @FXML private TextField mutation;
-    @FXML private Button btStart;
-    @FXML private Button btPause;
-    @FXML private Button btSave;
-    @FXML private Button btReset;
-
-    @FXML
-    void PauseAction(ActionEvent event) {
-    	System.out.println("ggg");
-    	System.exit(0);
+   
+    public void setEditable(boolean editable)
+    {
+    	seqLen.setEditable(editable);
+    	amount.setEditable(editable);
+    	mutation.setEditable(editable);
     }
-
-    @FXML
-    void ResetAction(ActionEvent event) {
-    	System.out.println("ggg");
-    	System.exit(0);
-    }
-
-    @FXML
-    void SaveAction(ActionEvent event) {
-    	System.out.println("ggg");
-    	System.exit(0);
-    }
-
-    @FXML
-    void StartAction(ActionEvent event) {
-    	System.out.println("ggg");
-    	System.exit(0);
+    
+    public ArrayList<Mover> getPopulation()
+    {
+    	int lenght=Integer.valueOf(seqLen.getText());
+    	int moversAmount=Integer.valueOf(amount.getText());
+    	ArrayList<Mover> m=new ArrayList<>();
+    	for(int i=0;i<moversAmount;i++)
+    	{
+    		m.add(new AutomaticMover(lenght));
+    	}return m;
     }
 }

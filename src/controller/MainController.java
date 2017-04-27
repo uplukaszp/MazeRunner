@@ -9,7 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import mazeHandling.AutomaticMover;
 
 public class MainController {
 
@@ -18,33 +17,42 @@ public class MainController {
     @FXML    private Canvas canvas;
     @FXML    private Button addbtn;
     @FXML    private AnchorPane GeneticPane;
-    
+    @FXML	 private MutationController mutationController;
     private int size;
     private MazeController controller;
-    private int howManyMoves=100;
     
     @FXML
     void Generate(ActionEvent event) {
     		if(controller!=null)
     		{
-    			controller.stopAllMovers();
+    			controller.stopSimulation();
     		}
     		size=Integer.valueOf(tf_size.getText());
     		GraphicsContext gc=canvas.getGraphicsContext2D();
     		controller=new MazeController(gc,size,canvas.getWidth(), canvas.getHeight());
     		controller.drawAll();
-    	
-    		
     }
-    
 
+    @FXML
+    void Start(ActionEvent event) {
+    	btn1.setDisable(true);
+    	mutationController.setEditable(false);
+    	controller.setMovers(mutationController.getPopulation());    	
+    	controller.StartSimulation();
+    }
     
     @FXML
-    void add(ActionEvent event) {
-    	if(controller!=null)
-    	{
-    		controller.addMover(new AutomaticMover(howManyMoves));
-    	}
+    void Pause(ActionEvent event) {
+    
     }
-
+    @FXML
+    void Save(ActionEvent event) {
+    
+    }
+    @FXML
+    void New(ActionEvent event) {
+    	mutationController.setEditable(true);
+    	btn1.setDisable(false);
+    }
+    
 }
