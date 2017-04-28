@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.SortedMap;
 
@@ -13,6 +14,7 @@ import com.sun.javafx.geom.Point2D;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import mazeHandling.AutomaticMover;
+import mazeHandling.Directions;
 
 public class EvolutionController {
 
@@ -21,6 +23,7 @@ public class EvolutionController {
     @FXML private TextField mutation;
    
     private int size;
+    private Random r=new Random();
     public void setEditable(boolean editable)
     {
     	seqLen.setDisable(!editable);
@@ -31,7 +34,7 @@ public class EvolutionController {
     {
     	this.size=size;
     }
-    public ArrayList<AutomaticMover> getPopulation()
+    public ArrayList<AutomaticMover> getRandomPopulation()
     {
     	int lenght=Integer.valueOf(seqLen.getText());
     	int moversAmount=Integer.valueOf(amount.getText());
@@ -44,50 +47,69 @@ public class EvolutionController {
     }
     public ArrayList<AutomaticMover> Evolve(ArrayList<AutomaticMover> oldPopulation)
     {
-    	ArrayList<AutomaticMover> bestFromOld=Evaluate(oldPopulation);
+    	ArrayList<Integer> evaluations=Evaluate(oldPopulation);
+    	CrossOver(oldPopulation, evaluations);
     	
-		return bestFromOld;
+		return oldPopulation;
     	
     }
     
-    private ArrayList<AutomaticMover> Evaluate(ArrayList<AutomaticMover> oldPopulation)
+    private ArrayList<Integer> Evaluate(ArrayList<AutomaticMover> oldPopulation)
     {
-    	Map<AutomaticMover, Double> m=new HashMap<>();
-    	ArrayList<AutomaticMover> newPopulation=new ArrayList<>();
+    	ArrayList<Integer> fitness=new ArrayList<>();
+    	
     	
     	for(AutomaticMover mover:oldPopulation)
     	{
-    		m.put(mover,calculateFitness(mover));
+    		fitness.add(calculateFitness(mover));
     	}
-		double maxFit=0;
-		AutomaticMover temp = null;
-    	for(Map.Entry<AutomaticMover, Double> entry:m.entrySet())
-    	{
-    		for(AutomaticMover mover:newPopulation)
-    		{
-    			if(entry.getKey()!=mover)
-    			{
-		    		if(entry.getValue()>maxFit)
-		    		{
-		    			temp=entry.getKey();
-		    		}
-    			}
-    		}
-    		newPopulation.add(temp);
-    	}
-		
-    	return newPopulation;
+    	return fitness;
     	
     }
-    private double calculateFitness(AutomaticMover m)
+    private int calculateFitness(AutomaticMover m)
     {
     	Point2D p=m.getPos();
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
-    	return m.getNumberOfMoves()/distance;
+    	double fitness=1.0/(distance*m.getNumberOfMoves());
+    	return normalize(fitness,0,1,0,100);
     }
-    private ArrayList<AutomaticMover> CrossOver(ArrayList<AutomaticMover> population)
+   
+    private ArrayList<AutomaticMover> CrossOver(ArrayList<AutomaticMover>  population,ArrayList<Integer> evaluations)
     {
-		return population;
+    	AutomaticMover parent1,parent2;
+    	ArrayList<AutomaticMover> newPopulation=new ArrayList<>();
+    	for(int i=0;i<population.size()-1;i++)
+    	{
+    		parent1=population.get(i);
+    		parent2=population.get(i+1);
+    		newPopulation.add(Combine(parent1,parent2,evaluations.get(i),evaluations.get(i+1)));
+    	}
     	
+		return newPopulation;
+		
+    	
+    }
+    private AutomaticMover Combine(AutomaticMover m1,AutomaticMover m2,int fitness1,int fitness2)
+    {
+    	Directions genes1[]=m1.getMoveSequence();
+    	Directions genes2[]=m2.getMoveSequence();
+    	Directions newGenes[]=new Directions[genes1.length];
+    	for(int i=0;i<genes1.length;i++)
+    	{
+    		int random=r.nextInt(fitness1+fitness2);
+    		if(random<=fitness1)
+    		{
+    			newGenes[i]=genes1[i];
+    		}else
+    		{
+    			newGenes[i]=genes2[i];
+    		}
+    	}
+		return new AutomaticMover(newGenes);
+    	
+    }
+    private int normalize(double value, double min, double max,double newMin,double newMax)
+    {
+    	return (int) (((value-min)/(max-min))*(newMax-newMin)+newMin);
     }
 }

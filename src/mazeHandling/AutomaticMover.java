@@ -31,7 +31,13 @@ public class AutomaticMover {
 		sizeOfMover=0.3+r.nextDouble()*0.7;
 		c=new Color(r.nextDouble(),r.nextDouble(),r.nextDouble(),r.nextDouble());
 	}
-	
+	public AutomaticMover(Directions sequence[])
+	{
+		Random r=new Random();
+		moveSequence=sequence;
+		sizeOfMover=0.3+r.nextDouble()*0.7;
+		c=new Color(r.nextDouble(),r.nextDouble(),r.nextDouble(),r.nextDouble());
+	}
 	public Point2D getPos()
 	{
 		return new Point2D(x,y);
@@ -94,5 +100,9 @@ public class AutomaticMover {
 	public int getNumberOfMoves()
 	{
 		return whichMove;
+	}
+	public Directions[] getMoveSequence()
+	{
+		return moveSequence;
 	}
 }

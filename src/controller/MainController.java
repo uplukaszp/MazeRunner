@@ -43,7 +43,7 @@ public class MainController implements Observer{
     void Start(ActionEvent event) {
     	btn1.setDisable(true);
     	evolutionController.setEditable(false);
-    	controller.setMovers(evolutionController.getPopulation());    	
+    	controller.setMovers(evolutionController.getRandomPopulation());    	
     	controller.StartSimulation();
     }
     
