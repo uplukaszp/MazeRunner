@@ -63,7 +63,9 @@ public class MainController implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("end of cycle");
+		
+		controller.setMovers(evolutionController.Evolve(controller.getMovers()));
+		controller.StartSimulation();
 		
 	}
     

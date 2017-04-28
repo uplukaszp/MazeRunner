@@ -25,7 +25,7 @@ public class MazeController extends Observable{
 	{
 		
 		timeline = new Timeline(new KeyFrame(
-		        Duration.millis(100),
+		        Duration.millis(50),
 		        ae -> tryMove()));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		maze=new Maze(size);
@@ -40,8 +40,10 @@ public class MazeController extends Observable{
 	{
 		boolean stopMoving=false;
 		drawAll();
+		int i=0;
 		for(AutomaticMover m:movers)
 		{
+			System.out.println("Mover: "+i+++" = "+m);
 			if(!m.isAtTheEnd(size))
 			{
 				m.tryMove();
@@ -69,6 +71,7 @@ public class MazeController extends Observable{
 	private void endCycle() 
 	{
 		stopSimulation();
+		setChanged();
 		notifyObservers();		
 	}
 	public void addMover(AutomaticMover m)

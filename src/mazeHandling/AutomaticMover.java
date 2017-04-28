@@ -20,7 +20,7 @@ public class AutomaticMover {
 	
 
 	public AutomaticMover(int howManyMoves) {
-		
+		x=y=whichMove=0;
 		Random r=new Random();
 		moveSequence=new Directions[howManyMoves];
 		for(int i=0;i<moveSequence.length;i++)
@@ -33,6 +33,7 @@ public class AutomaticMover {
 	}
 	public AutomaticMover(Directions sequence[])
 	{
+		x=y=whichMove=0;
 		Random r=new Random();
 		moveSequence=sequence;
 		sizeOfMover=0.3+r.nextDouble()*0.7;
@@ -104,5 +105,10 @@ public class AutomaticMover {
 	public Directions[] getMoveSequence()
 	{
 		return moveSequence;
+	}
+	@Override
+	public String toString()
+	{
+		return "Move nr: "+getNumberOfMoves()+" isMoving: "+isMoving()+"pos: "+getPos();
 	}
 }

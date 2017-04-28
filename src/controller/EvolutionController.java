@@ -48,9 +48,9 @@ public class EvolutionController {
     public ArrayList<AutomaticMover> Evolve(ArrayList<AutomaticMover> oldPopulation)
     {
     	ArrayList<Integer> evaluations=Evaluate(oldPopulation);
-    	CrossOver(oldPopulation, evaluations);
+    	ArrayList<AutomaticMover> newPopulation=CrossOver(oldPopulation, evaluations);
     	
-		return oldPopulation;
+		return newPopulation;
     	
     }
     
@@ -70,8 +70,10 @@ public class EvolutionController {
     {
     	Point2D p=m.getPos();
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
-    	double fitness=1.0/(distance*m.getNumberOfMoves());
-    	return normalize(fitness,0,1,0,100);
+    	double fitness=100.0/(distance*m.getNumberOfMoves());
+    	int normalizedfitness=normalize(fitness,0,1,0,100);
+    	System.out.println("normfit: "+normalizedfitness);
+    	return normalizedfitness;
     }
    
     private ArrayList<AutomaticMover> CrossOver(ArrayList<AutomaticMover>  population,ArrayList<Integer> evaluations)
@@ -84,7 +86,9 @@ public class EvolutionController {
     		parent2=population.get(i+1);
     		newPopulation.add(Combine(parent1,parent2,evaluations.get(i),evaluations.get(i+1)));
     	}
-    	
+    	parent1=population.get(0);
+    	parent2=population.get(population.size()-1);
+    	newPopulation.add(Combine(parent1, parent2, evaluations.get(0), evaluations.get(evaluations.size()-1)));
 		return newPopulation;
 		
     	
