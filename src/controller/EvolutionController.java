@@ -24,6 +24,7 @@ public class EvolutionController {
    
     private int size;
     private Random r=new Random();
+    private double mutateRatio;
     public void setEditable(boolean editable)
     {
     	seqLen.setDisable(!editable);
@@ -34,10 +35,12 @@ public class EvolutionController {
     {
     	this.size=size;
     }
-    public ArrayList<AutomaticMover> getRandomPopulation()
+    public ArrayList<AutomaticMover> getRandomPopulation()throws NumberFormatException
     {
+    	
     	int lenght=Integer.valueOf(seqLen.getText());
     	int moversAmount=Integer.valueOf(amount.getText());
+    	mutateRatio=Double.valueOf(mutation.getText())/1000.0;
     	ArrayList<AutomaticMover> m=new ArrayList<>();
     	for(int i=0;i<moversAmount;i++)
     	{
@@ -120,7 +123,7 @@ public class EvolutionController {
    
     private void Mutate(AutomaticMover mover)
     {
-    	double mutateRatio=Double.valueOf(mutation.getText())/1000.0;
+    	
     	double chance;
     	Directions genes[]=mover.getMoveSequence();
     	for(int i=0;i<genes.length;i++)

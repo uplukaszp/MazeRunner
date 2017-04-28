@@ -22,9 +22,9 @@
             <fx:include fx:id="evolution" source="GeneticSettingsView.fxml" />
          </children>
       </Pane>
-      <Button layoutX="515.0" layoutY="105.0" mnemonicParsing="false" onAction="#Start" prefHeight="25.0" prefWidth="64.0" text="Start" />
-      <Button layoutX="515.0" layoutY="145.0" mnemonicParsing="false" onAction="#Pause" prefHeight="25.0" prefWidth="64.0" text="Pause" />
-      <Button layoutX="515.0" layoutY="184.0" mnemonicParsing="false" onAction="#Save" prefHeight="25.0" prefWidth="64.0" text="Save" />
-      <Button layoutX="515.0" layoutY="221.0" mnemonicParsing="false" onAction="#New" prefHeight="25.0" prefWidth="64.0" text="New" />
+      <Button fx:id="startbtn" layoutX="515.0" layoutY="105.0" mnemonicParsing="false" onAction="#Start" prefHeight="25.0" prefWidth="64.0" text="Start" />
+      <Button fx:id="pausebtn" layoutX="515.0" layoutY="145.0" mnemonicParsing="false" onAction="#Pause" prefHeight="25.0" prefWidth="64.0" text="Pause" />
+      <Button fx:id="savebtn" layoutX="515.0" layoutY="184.0" mnemonicParsing="false" onAction="#Save" prefHeight="25.0" prefWidth="64.0" text="Save" />
+      <Button fx:id="newbtn" layoutX="515.0" layoutY="221.0" mnemonicParsing="false" onAction="#New" prefHeight="25.0" prefWidth="64.0" text="New" />
    </children>
 </Pane>
