@@ -72,7 +72,6 @@ public class EvolutionController {
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
     	double fitness=100.0/(distance*m.getNumberOfMoves());
     	int normalizedfitness=normalize(fitness,0,1,0,100);
-    	System.out.println("normfit: "+normalizedfitness);
     	return normalizedfitness;
     }
    
@@ -109,11 +108,30 @@ public class EvolutionController {
     			newGenes[i]=genes2[i];
     		}
     	}
-		return new AutomaticMover(newGenes);
+    	AutomaticMover newMover=new AutomaticMover(newGenes);
+    	Mutate(newMover);
+		return newMover;
     	
     }
     private int normalize(double value, double min, double max,double newMin,double newMax)
     {
     	return (int) (((value-min)/(max-min))*(newMax-newMin)+newMin);
+    }
+   
+    private void Mutate(AutomaticMover mover)
+    {
+    	double mutateRatio=Double.valueOf(mutation.getText())/1000.0;
+    	double chance;
+    	Directions genes[]=mover.getMoveSequence();
+    	for(int i=0;i<genes.length;i++)
+    	{
+    		chance=r.nextDouble();
+    		if(chance<=mutateRatio)
+    		{
+    			genes[i]=Directions.getRandomDirection();
+    			System.out.println("mutated ch: "+chance+" ratio: "+mutateRatio);
+    		}
+    	}
+    	mover=new AutomaticMover(genes);
     }
 }

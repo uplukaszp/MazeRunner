@@ -43,7 +43,6 @@ public class MazeController extends Observable{
 		int i=0;
 		for(AutomaticMover m:movers)
 		{
-			System.out.println("Mover: "+i+++" = "+m);
 			if(!m.isAtTheEnd(size))
 			{
 				m.tryMove();
