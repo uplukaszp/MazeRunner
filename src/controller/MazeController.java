@@ -40,7 +40,7 @@ public class MazeController extends Observable{
 	{
 		boolean stopMoving=false;
 		drawAll();
-		int i=0;
+		System.out.println();
 		for(AutomaticMover m:movers)
 		{
 			if(!m.isAtTheEnd(size))
@@ -50,17 +50,21 @@ public class MazeController extends Observable{
 				{
 					m.updatePos();
 				}
-				if(m.isAtTheEnd(size))
-				{
-					m.stop();
-				}
-				if(!m.isMoving())
-				{
-					stopMoving=true;
-				}
-			}else continue;
+				
+			}else
+			{
+				m.tryMove();
+			}
 			
 		}
+		for(AutomaticMover m:movers)
+		{
+			if(!m.isMoving())
+			{
+				stopMoving=true;
+			}
+		}
+		
 		if(stopMoving)
 		{
 			endCycle();

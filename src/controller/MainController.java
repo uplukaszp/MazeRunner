@@ -40,10 +40,7 @@ public class MainController implements Observer{
     }
     @FXML
     void Generate(ActionEvent event) {
-    		if(controller!=null)
-    		{
-    			controller.stopSimulation();
-    		}
+    	
     		size=Integer.valueOf(tf_size.getText());
     		evolutionController.setsize(size);
     		GraphicsContext gc=canvas.getGraphicsContext2D();
@@ -67,7 +64,7 @@ public class MainController implements Observer{
     	}
     	catch(NumberFormatException e)
     	{
-    		Alert alert = new Alert(AlertType.INFORMATION);
+    		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Error");
     		alert.setHeaderText(null);
     		alert.setContentText("Problem " +e.getLocalizedMessage());
@@ -112,6 +109,8 @@ public class MainController implements Observer{
 		
 		controller.setMovers(evolutionController.Evolve(controller.getMovers()));
 		controller.StartSimulation();
+		
+		
 		
 	}
     

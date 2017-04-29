@@ -83,20 +83,18 @@ public class AutomaticMover {
 		}else
 		{
 			lastDirection=Directions.nothing;
+			isStopped=true;
 		}		
 	}
 	
 	public boolean isMoving()
 	{
-		return lastDirection!=Directions.nothing;
+		return !isStopped;
+		//return lastDirection!=Directions.nothing;
 	}
 	public boolean isAtTheEnd(int size)
 	{
 		return this.x==(size-1)&&this.y==(size-1);
-	}
-	public void stop()
-	{
-		isStopped=true;
 	}
 	public int getNumberOfMoves()
 	{
@@ -106,9 +104,13 @@ public class AutomaticMover {
 	{
 		return moveSequence;
 	}
+	public int getHowManyMoves()
+	{
+		return whichMove;
+	}
 	@Override
 	public String toString()
 	{
-		return "Move nr: "+getNumberOfMoves()+" isMoving: "+isMoving()+"pos: "+getPos();
+		return "Move nr: "+getNumberOfMoves()+" isMoving: "+isMoving()+"isStoped: "+isStopped+" pos: "+getPos();
 	}
 }

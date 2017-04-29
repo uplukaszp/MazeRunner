@@ -1,17 +1,13 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
-import java.util.SortedMap;
+
 
 import com.sun.javafx.geom.Point2D;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mazeHandling.AutomaticMover;
 import mazeHandling.Directions;
@@ -21,10 +17,17 @@ public class EvolutionController {
     @FXML private TextField seqLen;
     @FXML private TextField amount;
     @FXML private TextField mutation;
+    @FXML private Label itLabel;
+    @FXML private Label bestLabel;
    
     private int size;
     private Random r=new Random();
     private double mutateRatio;
+    private int iterations=0;
+	private int bestScore=0;
+	private int bestfit;
+	
+		
     public void setEditable(boolean editable)
     {
     	seqLen.setDisable(!editable);
@@ -35,24 +38,38 @@ public class EvolutionController {
     {
     	this.size=size;
     }
+    private void updateIt()
+    {
+    	itLabel.setText("Iterations: "+iterations);
+    }
+    private void updateBest()
+    {
+    	bestLabel.setText("Best Mover\n"+bestScore+" moves");
+    }
     public ArrayList<AutomaticMover> getRandomPopulation()throws NumberFormatException
     {
     	
     	int lenght=Integer.valueOf(seqLen.getText());
     	int moversAmount=Integer.valueOf(amount.getText());
+    	bestScore=moversAmount;
     	mutateRatio=Double.valueOf(mutation.getText())/1000.0;
     	ArrayList<AutomaticMover> m=new ArrayList<>();
     	for(int i=0;i<moversAmount;i++)
     	{
     		m.add(new AutomaticMover(lenght));
     	}
+    	bestfit=0;
+    	iterations=0;
+    	updateIt();
     	return m;
     }
     public ArrayList<AutomaticMover> Evolve(ArrayList<AutomaticMover> oldPopulation)
     {
+    	iterations++;
     	ArrayList<Integer> evaluations=Evaluate(oldPopulation);
     	ArrayList<AutomaticMover> newPopulation=CrossOver(oldPopulation, evaluations);
-    	
+    	updateBest();
+    	updateIt();
 		return newPopulation;
     	
     }
@@ -71,11 +88,23 @@ public class EvolutionController {
     }
     private int calculateFitness(AutomaticMover m)
     {
+    	
     	Point2D p=m.getPos();
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
-    	double fitness=100.0/(distance*m.getNumberOfMoves());
-    	int normalizedfitness=normalize(fitness,0,1,0,100);
+    	double fitness=10.0/(distance*m.getNumberOfMoves());
+    	int normalizedfitness=normalize(fitness,0,10,0,100);
+    	System.out.println("best: "+bestfit+" normalized: "+normalizedfitness+" dist: "+distance);
+    	if(normalizedfitness>bestfit)
+    	{
+    		System.out.println("best");
+    		bestScore=m.getHowManyMoves();
+    		bestfit=normalizedfitness;
+    	}
     	return normalizedfitness;
+    }
+    private int normalize(double value, double min, double max,double newMin,double newMax)
+    {
+    	return (int) (((value-min)/(max-min))*(newMax-newMin)+newMin);
     }
    
     private ArrayList<AutomaticMover> CrossOver(ArrayList<AutomaticMover>  population,ArrayList<Integer> evaluations)
@@ -116,11 +145,7 @@ public class EvolutionController {
 		return newMover;
     	
     }
-    private int normalize(double value, double min, double max,double newMin,double newMax)
-    {
-    	return (int) (((value-min)/(max-min))*(newMax-newMin)+newMin);
-    }
-   
+
     private void Mutate(AutomaticMover mover)
     {
     	
