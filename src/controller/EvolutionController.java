@@ -95,14 +95,11 @@ public class EvolutionController {
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
     	double fitness=100.0/(distance*m.getNumberOfMoves());
     	int normalizedfitness=normalize(fitness,0,1,0,100);
-		System.out.println("bestscore: "+m.getHowManyMoves());
 
     	if(normalizedfitness>bestfit)
     	{
     		bestScore=m.getHowManyMoves();
     		bestfit=normalizedfitness;
-    		for(Directions d:m.getMoveSequence())System.out.print(d+" ");
-    		System.out.println();
     	}
     	return normalizedfitness;
     }
@@ -161,7 +158,6 @@ public class EvolutionController {
     		if(chance<=mutateRatio)
     		{
     			genes[i]=Directions.getRandomDirection();
-    			System.out.println("mutated ch: "+chance+" ratio: "+mutateRatio);
     		}
     	}
     	mover=new AutomaticMover(genes);

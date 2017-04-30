@@ -114,6 +114,6 @@ public class AutomaticMover {
 	@Override
 	public String toString()
 	{
-		return "Move nr: "+getNumberOfMoves()+" isMoving: "+isMoving()+"isStoped: "+isStopped+" pos: "+getPos();
+		return "Move nr: "+getNumberOfMoves()+" isMoving: "+isMoving()+" isStoped: "+isStopped+" pos: "+getPos();
 	}
 }

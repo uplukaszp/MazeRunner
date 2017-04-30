@@ -108,8 +108,7 @@ public class Maze {
 	}
 	public boolean isPosibleMove(Directions d,Point2D from)
 	{
-		return !cells[(int) from.y][(int) from.x].isWall(d);
-			
+		return !cells[(int) from.y][(int) from.x].isWall(d);			
 	}
 	
 }

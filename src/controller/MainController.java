@@ -21,7 +21,6 @@ public class MainController implements Observer{
     @FXML    private Button startbtn;
     @FXML    private Button pausebtn;
     @FXML    private Button newbtn;
-    @FXML    private Button savebtn;
     @FXML    private TextField tf_size;    
     @FXML    private Canvas canvas;
     @FXML    private AnchorPane GeneticPane;
@@ -35,12 +34,11 @@ public class MainController implements Observer{
     	startbtn.setDisable(true);
     	pausebtn.setDisable(true);
     	newbtn.setDisable(true);
-    	savebtn.setDisable(true);
-    	
     }
     @FXML
     void Generate(ActionEvent event) {
     	
+    	try {
     		size=Integer.valueOf(tf_size.getText());
     		evolutionController.setsize(size);
     		GraphicsContext gc=canvas.getGraphicsContext2D();
@@ -48,6 +46,11 @@ public class MainController implements Observer{
     		controller.addObserver(this);
     		controller.drawAll();
     		startbtn.setDisable(false);
+		} catch (Exception e) {
+			alert(e.getMessage());
+		}
+    		
+    		
     }
 
     @FXML
@@ -64,12 +67,7 @@ public class MainController implements Observer{
     	}
     	catch(NumberFormatException e)
     	{
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Error");
-    		alert.setHeaderText(null);
-    		alert.setContentText("Problem " +e.getLocalizedMessage());
-
-    		alert.showAndWait();
+    		alert(e.getMessage());
     		initialize();
     		btn1.setDisable(false);
     	}
@@ -90,10 +88,7 @@ public class MainController implements Observer{
     		pausebtn.setText("Pause");
     	}
     }
-    @FXML
-    void Save(ActionEvent event) {
-    
-    }
+   
     @FXML
     void New(ActionEvent event) {
     	controller.stopSimulation();
@@ -112,6 +107,16 @@ public class MainController implements Observer{
 		
 		
 		
+	}
+	private void alert(String msg)
+	{
+
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(null);
+		alert.setContentText("Problem " +msg);
+
+		alert.showAndWait();
 	}
     
 }

@@ -40,7 +40,6 @@ public class Cell {
 	}
 	public void removeWallBetween(Cell c)
 	{
-		//TODO throw when cells are not neighbours
 		if(y>c.y)//c on top
 		{
 			walls[0]=false;
