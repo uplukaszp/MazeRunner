@@ -53,6 +53,7 @@ public class MazeController extends Observable{
 				
 			}else
 			{
+				m.stop();
 				m.tryMove();
 			}
 			

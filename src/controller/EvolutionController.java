@@ -26,7 +26,7 @@ public class EvolutionController {
     private int iterations=0;
 	private int bestScore=0;
 	private int bestfit;
-	
+	private int moversAmount;
 		
     public void setEditable(boolean editable)
     {
@@ -50,7 +50,7 @@ public class EvolutionController {
     {
     	
     	int lenght=Integer.valueOf(seqLen.getText());
-    	int moversAmount=Integer.valueOf(amount.getText());
+    	moversAmount=Integer.valueOf(amount.getText());
     	bestScore=moversAmount;
     	mutateRatio=Double.valueOf(mutation.getText())/1000.0;
     	ArrayList<AutomaticMover> m=new ArrayList<>();
@@ -66,6 +66,8 @@ public class EvolutionController {
     public ArrayList<AutomaticMover> Evolve(ArrayList<AutomaticMover> oldPopulation)
     {
     	iterations++;
+    	bestScore=moversAmount;
+    	bestfit=0;
     	ArrayList<Integer> evaluations=Evaluate(oldPopulation);
     	ArrayList<AutomaticMover> newPopulation=CrossOver(oldPopulation, evaluations);
     	updateBest();
@@ -91,14 +93,16 @@ public class EvolutionController {
     	
     	Point2D p=m.getPos();
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
-    	double fitness=10.0/(distance*m.getNumberOfMoves());
-    	int normalizedfitness=normalize(fitness,0,10,0,100);
-    	System.out.println("best: "+bestfit+" normalized: "+normalizedfitness+" dist: "+distance);
+    	double fitness=100.0/(distance*m.getNumberOfMoves());
+    	int normalizedfitness=normalize(fitness,0,1,0,100);
+		System.out.println("bestscore: "+m.getHowManyMoves());
+
     	if(normalizedfitness>bestfit)
     	{
-    		System.out.println("best");
     		bestScore=m.getHowManyMoves();
     		bestfit=normalizedfitness;
+    		for(Directions d:m.getMoveSequence())System.out.print(d+" ");
+    		System.out.println();
     	}
     	return normalizedfitness;
     }

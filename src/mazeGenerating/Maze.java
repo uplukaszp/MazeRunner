@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import mazeHandling.Directions;
 
 public class Maze {
-	private final double chanceForRemove=0.03;
+	private final double chanceForRemove=0.035;
 	private int size;
 	private Cell cells[][];
 	private Cell current;

@@ -75,7 +75,10 @@ public class AutomaticMover {
 		gc.fillRect(x*cellWidth, y*cellHeight, cellWidth*sizeOfMover, cellHeight*sizeOfMover);
 	}
 
-
+	public void stop()
+	{
+		isStopped=true;
+	}
 	public void tryMove() {
 		if(whichMove<moveSequence.length&&!isStopped)
 		{
