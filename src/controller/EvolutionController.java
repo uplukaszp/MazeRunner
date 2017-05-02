@@ -25,7 +25,7 @@ public class EvolutionController {
     private double mutateRatio;
     private int iterations=0;
 	private int bestScore=0;
-	private int bestfit;
+	private double bestfit;
 	private int moversAmount;
 		
     public void setEditable(boolean editable)
@@ -78,34 +78,49 @@ public class EvolutionController {
     
     private ArrayList<Integer> Evaluate(ArrayList<AutomaticMover> oldPopulation)
     {
-    	ArrayList<Integer> fitness=new ArrayList<>();
+    	ArrayList<Double> fitness=new ArrayList<>();
     	
     	
     	for(AutomaticMover mover:oldPopulation)
     	{
     		fitness.add(calculateFitness(mover));
     	}
-    	return fitness;
+    	double min=Double.MAX_VALUE, max=Double.MIN_VALUE;
+    	for(Double d:fitness)
+    	{
+    		if(min>d)min=d;
+    		if(max<d)max=d;
+    	}
+    	System.out.println("min: "+min+" max:"+max);
+    	ArrayList<Integer>normalizedFitness=new ArrayList<>();
+    	for(Double d:fitness)
+    	{
+    		normalizedFitness.add(normalize(d, min, max, 1.0, 100.0));
+    	}
+    	
+    	return normalizedFitness;
     	
     }
-    private int calculateFitness(AutomaticMover m)
+    private double calculateFitness(AutomaticMover m)
     {
     	
     	Point2D p=m.getPos();
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
-    	double fitness=100.0/(distance*m.getNumberOfMoves());
-    	int normalizedfitness=normalize(fitness,0,1,0,100);
-
-    	if(normalizedfitness>bestfit)
+    	double fitness=1.0/(distance*m.getNumberOfMoves());
+    	if(fitness>bestfit)
     	{
     		bestScore=m.getHowManyMoves();
-    		bestfit=normalizedfitness;
+    		bestfit=fitness;
     	}
-    	return normalizedfitness;
+    	System.out.print("fitness: "+fitness);
+    	return fitness;
     }
     private int normalize(double value, double min, double max,double newMin,double newMax)
     {
-    	return (int) (((value-min)/(max-min))*(newMax-newMin)+newMin);
+    	double norm=(int) ((((value-min)/(max-min))*(newMax-newMin))+newMin);
+    	System.out.println(" norm"+norm);
+    	if(norm==0)norm=1;
+    	return (int)norm;
     }
    
     private ArrayList<AutomaticMover> CrossOver(ArrayList<AutomaticMover>  population,ArrayList<Integer> evaluations)
