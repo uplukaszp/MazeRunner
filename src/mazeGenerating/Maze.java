@@ -1,19 +1,15 @@
 package mazeGenerating;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Stack;
-
 import com.sun.javafx.geom.Point2D;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import mazeHandling.Directions;
 
 public class Maze {
-	private final double chanceForRemove=0.035;
+	private final double chanceForRemove=0.035;  
 	private int size;
 	private Cell cells[][];
 	private Cell current;
@@ -62,18 +58,21 @@ public class Maze {
 		ArrayList<Cell> neighbours=new ArrayList<Cell>();
 		int curX=current.getX();
 		int curY=current.getY();
+		//check Neighbour on top
 		if((curY-1)>=0&&(!cells[curY-1][curX].getVisited()))
 		{
 			neighbours.add(cells[current.getY()-1][curX]);
 		}
+		//on right
 		if(curX+1<size&&(!cells[curY][curX+1].getVisited()))
 		{
 			neighbours.add(cells[curY][curX+1]);
 		}
+		//on bottom
 		if(current.getY()+1<size&&(!cells[curY+1][curX].getVisited()))
 		{
 			neighbours.add(cells[curY+1][curX]);
-		}
+		}//on left
 		if(curX-1>=0&&(!cells[curY][curX-1].getVisited()))
 		{
 			neighbours.add(cells[curY][curX-1]);
@@ -105,7 +104,6 @@ public class Maze {
 				cells[y][x].drawCell(gc, w, h);
 			}
 		}
-		drawBestPath(gc, w, h);
 	}
 	public void setBestSequence(Directions seq[])
 	{
@@ -122,10 +120,8 @@ public class Maze {
 		gc.setStroke(Color.RED);
 		gc.beginPath();
 		gc.moveTo(lineHPos, lineVPos);
-		System.out.println(Arrays.toString(bestSequence));
 		for(int i=0;i<bestSequence.length;i++)
 		{
-			System.out.print("[ "+p.x+", "+p.y+" ]");
 			if(p.x==size&&p.y==size)
 			{
 				break;
@@ -151,7 +147,6 @@ public class Maze {
 				gc.lineTo(p.x*cellWidth+lineHPos,p.y*cellHeight+lineVPos);
 			}
 		}
-		System.out.println();
 		gc.stroke();
 	}
 	public boolean isPosibleMove(Directions d,Point2D from)

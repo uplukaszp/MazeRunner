@@ -7,15 +7,12 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import mazeHandling.Directions;
 
-
-
-
 public class Cell {
 	
 	private int x,y;
 	private int size;
 	private boolean walls[]={true,true,true,true};
-	boolean visited=false;
+	private boolean visited=false;
 	
 	public Cell(int x,int y,int size)
 	{

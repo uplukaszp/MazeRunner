@@ -1,11 +1,8 @@
 package controller;
 
-
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -16,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import mazeHandling.AutomaticMover;
-import mazeHandling.Directions;
 
 public class MainController implements Observer{
 
@@ -24,7 +20,7 @@ public class MainController implements Observer{
     @FXML    private Button startbtn;
     @FXML    private Button pausebtn;
     @FXML    private Button newbtn;
-    @FXML    private TextField tf_size;    
+    @FXML    private TextField tfsize;    
     @FXML    private Canvas canvas;
     @FXML    private AnchorPane GeneticPane;
     @FXML	 private EvolutionController evolutionController;
@@ -42,13 +38,14 @@ public class MainController implements Observer{
     void Generate(ActionEvent event) {
     	
     	try {
-    		size=Integer.valueOf(tf_size.getText());
-    		evolutionController.setsize(size);
-    		GraphicsContext gc=canvas.getGraphicsContext2D();
-    		controller=new MazeController(gc,size,canvas.getWidth(), canvas.getHeight());
-    		controller.addObserver(this);
-    		controller.drawAll();
-    		startbtn.setDisable(false);
+	    		size=Integer.valueOf(tfsize.getText());
+	    		if(size<0)throw new BadDataException(size);
+	    		evolutionController.setsize(size);
+	    		GraphicsContext gc=canvas.getGraphicsContext2D();
+	    		controller=new MazeController(gc,size,canvas.getWidth(), canvas.getHeight());
+	    		controller.addObserver(this);
+	    		controller.drawAll();
+	    		startbtn.setDisable(false);
 		} catch (Exception e) {
 			alert(e.getMessage());
 		}
@@ -59,7 +56,7 @@ public class MainController implements Observer{
     @FXML
     void Start(ActionEvent event) {
     	btn1.setDisable(true);
-    	tf_size.setDisable(true);
+    	tfsize.setDisable(true);
     	pausebtn.setDisable(false);
     	newbtn.setDisable(false);
     	startbtn.setDisable(true);
@@ -69,7 +66,7 @@ public class MainController implements Observer{
     	controller.setMovers(evolutionController.getRandomPopulation());  
     	controller.StartSimulation();
     	}
-    	catch(NumberFormatException e)
+    	catch(Exception e)
     	{
     		alert(e.getMessage());
     		initialize();
@@ -103,7 +100,7 @@ public class MainController implements Observer{
     	pausebtn.setText("Pause");
     	evolutionController.setEditable(true);
     	btn1.setDisable(false);
-    	tf_size.setDisable(false);
+    	tfsize.setDisable(false);
     	
     }
 
@@ -117,18 +114,13 @@ public class MainController implements Observer{
 		controller.setMovers(newPopulation);
 		controller.drawBestPath(bestMover);
 		controller.StartSimulation();
-		
-		
-		
 	}
 	private void alert(String msg)
 	{
-
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText(null);
-		alert.setContentText("Problem " +msg);
-
+		alert.setContentText(msg);
 		alert.showAndWait();
 	}
     

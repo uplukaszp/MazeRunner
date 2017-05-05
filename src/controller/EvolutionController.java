@@ -37,6 +37,7 @@ public class EvolutionController {
 		orgBestLabel=bestLabel.getText();
 		orgItLabel=itLabel.getText();
 	}
+	
     public void setEditable(boolean editable)
     {
     	seqLen.setDisable(!editable);
@@ -55,13 +56,15 @@ public class EvolutionController {
     {
     	bestLabel.setText(orgBestLabel+bestScore);
     }
-    public ArrayList<AutomaticMover> getRandomPopulation()throws NumberFormatException
+    public ArrayList<AutomaticMover> getRandomPopulation()throws NumberFormatException,BadDataException
     {
-    	
     	int lenght=Integer.valueOf(seqLen.getText());
+    	if(lenght<0)throw new BadDataException(lenght);
     	moversAmount=Integer.valueOf(amount.getText());
+    	if(moversAmount<2)throw new BadDataException(moversAmount);
     	bestScore=moversAmount;
     	mutateRatio=Double.valueOf(mutation.getText())/1000.0;
+    	if(mutateRatio<0)throw new BadDataException(mutateRatio);
     	ArrayList<AutomaticMover> m=new ArrayList<>();
     	for(int i=0;i<moversAmount;i++)
     	{
@@ -81,15 +84,12 @@ public class EvolutionController {
     	ArrayList<AutomaticMover> newPopulation=CrossOver(oldPopulation, evaluations);
     	updateBest();
     	updateIt();
-		return newPopulation;
-    	
+		return newPopulation;	
     }
     
     private ArrayList<Integer> Evaluate(ArrayList<AutomaticMover> oldPopulation)
     {
     	ArrayList<Double> fitness=new ArrayList<>();
-    	
-    	
     	for(AutomaticMover mover:oldPopulation)
     	{
     		fitness.add(calculateFitness(mover));
@@ -100,19 +100,16 @@ public class EvolutionController {
     		if(min>d)min=d;
     		if(max<d)max=d;
     	}
-    	//System.out.println("min: "+min+" max:"+max);
     	ArrayList<Integer>normalizedFitness=new ArrayList<>();
     	for(Double d:fitness)
     	{
     		normalizedFitness.add(normalize(d, min, max, 1.0, 100.0));
     	}
-    	
     	return normalizedFitness;
     	
     }
     private double calculateFitness(AutomaticMover m)
     {
-    	
     	Point2D p=m.getPos();
     	int distance=1+(int) (Math.sqrt((p.x-(size-1))*(p.x-(size-1))+(p.y-(size-1))*(p.y-(size-1))));
     	double fitness=1.0/(distance*m.getNumberOfMoves());
@@ -122,13 +119,11 @@ public class EvolutionController {
     		bestfit=fitness;
     		bestMover=m;
     	}
-    //	System.out.print("fitness: "+fitness);
     	return fitness;
     }
     private int normalize(double value, double min, double max,double newMin,double newMax)
     {
     	double norm=(int) ((((value-min)/(max-min))*(newMax-newMin))+newMin);
-    	//System.out.println(" norm"+norm);
     	if(norm==0)norm=1;
     	return (int)norm;
     }
@@ -187,6 +182,7 @@ public class EvolutionController {
     	}
     	mover=new AutomaticMover(genes);
     }
+    
 	public AutomaticMover getBest() {
 		return bestMover;
 	}
