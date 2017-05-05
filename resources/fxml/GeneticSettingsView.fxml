@@ -10,27 +10,27 @@
       <TextField fx:id="seqLen" layoutX="24.0" layoutY="83.0" prefHeight="25.0" prefWidth="65.0" text="10" />
       <TextField fx:id="amount" layoutX="24.0" layoutY="30.0" prefHeight="25.0" prefWidth="65.0" text="10" />
       <TextField fx:id="mutation" layoutX="24.0" layoutY="135.0" prefHeight="25.0" prefWidth="65.0" text="1" />
-      <Label layoutX="10.0" layoutY="14.0" text="Amount">
+      <Label layoutX="10.0" layoutY="14.0" text="Amount of squares">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="10.0" layoutY="66.0" text="Sequences lenhgt">
+      <Label layoutX="10.0" layoutY="66.0" text="Number of moves">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="10.0" layoutY="118.0" text="Freq of Mutation">
+      <Label layoutX="10.0" layoutY="118.0" text="Freq. of Mutation">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="itLabel" layoutX="14.0" layoutY="168.0" text="Iterations: ">
+      <Label fx:id="itLabel" layoutX="14.0" layoutY="168.0" text="Current iteration">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="bestLabel" layoutX="14.0" layoutY="195.0" text="Best Mover: &#10; moves">
+      <Label fx:id="bestLabel" layoutX="14.0" layoutY="195.0" text="Smallest number &#10;of moves:">
          <font>
             <Font size="10.0" />
          </font>

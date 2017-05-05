@@ -93,7 +93,6 @@ public class AutomaticMover {
 	public boolean isMoving()
 	{
 		return !isStopped;
-		//return lastDirection!=Directions.nothing;
 	}
 	public boolean isAtTheEnd(int size)
 	{
@@ -116,4 +115,5 @@ public class AutomaticMover {
 	{
 		return "Move nr: "+getNumberOfMoves()+" isMoving: "+isMoving()+" isStoped: "+isStopped+" pos: "+getPos();
 	}
+	
 }

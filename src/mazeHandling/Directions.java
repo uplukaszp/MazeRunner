@@ -12,4 +12,5 @@ public enum Directions {
 	{
 		return d[r.nextInt(d.length-1)];
 	}
+	
 }

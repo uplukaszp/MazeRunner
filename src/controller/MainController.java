@@ -2,6 +2,7 @@ package controller;
 
 
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,6 +15,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import mazeHandling.AutomaticMover;
+import mazeHandling.Directions;
 
 public class MainController implements Observer{
 
@@ -56,6 +59,7 @@ public class MainController implements Observer{
     @FXML
     void Start(ActionEvent event) {
     	btn1.setDisable(true);
+    	tf_size.setDisable(true);
     	pausebtn.setDisable(false);
     	newbtn.setDisable(false);
     	startbtn.setDisable(true);
@@ -91,18 +95,27 @@ public class MainController implements Observer{
    
     @FXML
     void New(ActionEvent event) {
+    	
     	controller.stopSimulation();
+    	controller.clear();
     	startbtn.setDisable(false);
     	pausebtn.setDisable(true);
     	pausebtn.setText("Pause");
     	evolutionController.setEditable(true);
     	btn1.setDisable(false);
+    	tf_size.setDisable(false);
+    	
     }
 
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		controller.setMovers(evolutionController.Evolve(controller.getMovers()));
+		ArrayList<AutomaticMover> newPopulation,oldPopulation;
+		oldPopulation=controller.getMovers();
+		newPopulation=evolutionController.Evolve(oldPopulation);
+		AutomaticMover bestMover=evolutionController.getBest();
+		controller.setMovers(newPopulation);
+		controller.drawBestPath(bestMover);
 		controller.StartSimulation();
 		
 		

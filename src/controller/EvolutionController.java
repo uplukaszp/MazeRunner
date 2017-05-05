@@ -27,7 +27,16 @@ public class EvolutionController {
 	private int bestScore=0;
 	private double bestfit;
 	private int moversAmount;
-		
+	private AutomaticMover bestMover;
+	private String orgBestLabel;
+	private String orgItLabel;
+	
+	@FXML 
+	public void initialize()
+	{
+		orgBestLabel=bestLabel.getText();
+		orgItLabel=itLabel.getText();
+	}
     public void setEditable(boolean editable)
     {
     	seqLen.setDisable(!editable);
@@ -40,11 +49,11 @@ public class EvolutionController {
     }
     private void updateIt()
     {
-    	itLabel.setText("Iterations: "+iterations);
+    	itLabel.setText(orgItLabel+iterations);
     }
     private void updateBest()
     {
-    	bestLabel.setText("Best Mover\n"+bestScore+" moves");
+    	bestLabel.setText(orgBestLabel+bestScore);
     }
     public ArrayList<AutomaticMover> getRandomPopulation()throws NumberFormatException
     {
@@ -91,7 +100,7 @@ public class EvolutionController {
     		if(min>d)min=d;
     		if(max<d)max=d;
     	}
-    	System.out.println("min: "+min+" max:"+max);
+    	//System.out.println("min: "+min+" max:"+max);
     	ArrayList<Integer>normalizedFitness=new ArrayList<>();
     	for(Double d:fitness)
     	{
@@ -111,14 +120,15 @@ public class EvolutionController {
     	{
     		bestScore=m.getHowManyMoves();
     		bestfit=fitness;
+    		bestMover=m;
     	}
-    	System.out.print("fitness: "+fitness);
+    //	System.out.print("fitness: "+fitness);
     	return fitness;
     }
     private int normalize(double value, double min, double max,double newMin,double newMax)
     {
     	double norm=(int) ((((value-min)/(max-min))*(newMax-newMin))+newMin);
-    	System.out.println(" norm"+norm);
+    	//System.out.println(" norm"+norm);
     	if(norm==0)norm=1;
     	return (int)norm;
     }
@@ -177,4 +187,7 @@ public class EvolutionController {
     	}
     	mover=new AutomaticMover(genes);
     }
+	public AutomaticMover getBest() {
+		return bestMover;
+	}
 }

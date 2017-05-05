@@ -40,25 +40,25 @@ public class Cell {
 	}
 	public void removeWallBetween(Cell c)
 	{
-		if(y>c.y)//c on top
+		if (y>c.y)//c on top
 		{
-			walls[0]=false;
-			c.walls[2]=false;
+			walls[0] = false;
+			c.walls[2] = false;
 		}
-		if(x<c.x)//c on right
+		if (x<c.x)//c on right
 		{
-			walls[1]=false;
-			c.walls[3]=false;
+			walls[1] = false;
+			c.walls[3] = false;
 		}
-		if(y<c.y)//c on bottom
+		if (y<c.y)//c on bottom
 		{
-			walls[2]=false;
-			c.walls[0]=false;
+			walls[2] = false;
+			c.walls[0] = false;
 		}
-		if(x>c.x) //c on left
+		if (x>c.x) //c on left
 		{
-			walls[3]=false;
-			c.walls[1]=false;
+			walls[3] = false;
+			c.walls[1] = false;
 		}
 	}
 	public boolean isWall(Directions d)
