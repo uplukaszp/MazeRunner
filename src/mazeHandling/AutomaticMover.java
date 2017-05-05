@@ -1,7 +1,6 @@
 package mazeHandling;
 
 import java.util.Random;
-
 import com.sun.javafx.geom.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

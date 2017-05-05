@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane prefHeight="533.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <Button fx:id="btn1" layoutX="518.0" layoutY="14.0" mnemonicParsing="false" onAction="#Generate" text="Generate" />
+      <TextField fx:id="tfsize" layoutX="515.0" layoutY="65.0" prefHeight="25.0" prefWidth="64.0" text="10" />
+      <Canvas fx:id="canvas" height="533.0" width="498.0" />
+      <Label layoutX="518.0" layoutY="46.0" text="Size of maze" />
+      <Pane layoutX="494.0" layoutY="209.0" prefHeight="277.0" prefWidth="107.0">
+         <children>
+            <fx:include fx:id="evolution" source="GeneticSettingsView.fxml" />
+         </children>
+      </Pane>
+      <Button fx:id="startbtn" layoutX="515.0" layoutY="105.0" mnemonicParsing="false" onAction="#Start" prefHeight="25.0" prefWidth="64.0" text="Start" />
+      <Button fx:id="pausebtn" layoutX="515.0" layoutY="145.0" mnemonicParsing="false" onAction="#Pause" prefHeight="25.0" prefWidth="64.0" text="Pause" />
+      <Button fx:id="newbtn" layoutX="515.0" layoutY="184.0" mnemonicParsing="false" onAction="#New" prefHeight="25.0" prefWidth="64.0" text="New" />
+   </children>
+</Pane>
